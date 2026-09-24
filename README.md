@@ -1,4 +1,5 @@
 # Aggregation and observability of quantum-like decision structure
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22948242.svg)](https://doi.org/10.5281/zenodo.22948242)
 
 Code and derived data for:
 
