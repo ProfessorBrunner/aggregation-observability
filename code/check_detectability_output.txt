@@ -1,0 +1,4 @@
+N=  741 realized C_q=-0.0001  analytic power=0.004  empirical rejection=0.008 (3000 surveys)
+N=  741 realized C_q=+0.0255  analytic power=0.304  empirical rejection=0.296 (3000 surveys)
+N=  200 realized C_q=+0.0484  analytic power=0.305  empirical rejection=0.332 (3000 surveys)
+N= 5000 realized C_q=+0.0100  analytic power=0.315  empirical rejection=0.296 (3000 surveys)

@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite it as below."
+title: "Aggregation and observability of quantum-like decision structure: code and derived data"
+authors:
+  - family-names: Brunner
+    given-names: Robert J.
+    orcid: "https://orcid.org/0000-0002-7892-4460"
+    affiliation: "University of Illinois Urbana-Champaign"
+version: 1.0.0
+date-released: 2026-09-25
+license: MIT
+repository-code: "https://github.com/ProfessorBrunner/aggregation-observability"
+keywords:
+  - quantum cognition
+  - question order effects
+  - QQ equality
+  - aggregation
+  - Simpson's paradox
+  - statistical physics
