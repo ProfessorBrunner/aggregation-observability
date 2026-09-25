@@ -45,22 +45,34 @@ Past the crossing the single-agent solution is a chirped oscillation about the
 coherent asymptote,
 
     R(eps) = m_inf + A(eps) cos(Phi(eps) + phi0),   m_inf = 2 exp(-2 pi z) - 1,
-    Phi(eps) = eps^2/(4v) + (2 Delta^2/v) ln(eps/Delta) + ...,
-    Phi'(eps) = eps/(2v) + O(1/eps).                                      (3)
+    Phi(eps) = [eps*sqrt(eps^2+4D^2) + 4 D^2 asinh(eps/2D)] / (2v)
+             -> eps^2/(2v) + (2 Delta^2/v) ln(eps/Delta) + const,
+    Phi'(eps) = Omega/v = sqrt(eps^2 + 4 Delta^2)/v.                      (3)
+
+    CORRECTED 2026-09-25: as first written (3) had Phi = eps^2/(4v) and
+    Phi' = eps/(2v), taking the level splitting as eps/2 rather than eps.  The
+    splitting of H = (1/2) eps sigma_z + Delta sigma_x is Omega =
+    sqrt(eps^2 + 4 Delta^2) and the Bloch vector precesses at Omega.  Verified
+    on the stored single-agent curve: the first spacing of r_z minima is 4.4669
+    centred on eps = 6.7136 against 4.4847 from 2 pi/(Omega/v); over 25
+    spacings in 0 < eps < 40 the ratio measured/predicted is 0.9985 for
+    Omega/v and 0.4965 for eps/(2v).
 
 (a) PHASE SCRAMBLING.  Where A varies slowly over the kernel, expanding the
     phase to first order and integrating the Gaussian gives the damping factor
 
-        D(eps) = exp(-0.5 (Phi'(eps) s)^2) = exp(-eps^2 s^2 / (8 v^2)),    (4)
+        D(eps) = exp(-0.5 (Phi'(eps) s)^2)
+               = exp(-(eps^2 + 4 Delta^2) s^2 / (2 v^2)),                 (4)
 
     i.e. the oscillation survives while the spread of accumulated phase across
     the population, (eps/2) sigma_t, stays below a radian.  Applied at the
     location eps1 of the deepest single-agent excursion this predicts
 
-        U_phase(s) = U0 * exp(-eps1^2 s^2 / (8 v^2)),  U0 = m_inf - min R.  (5)
+        U_phase(s) = U0 * exp(-0.5 (Omega(eps1) s / v)^2),  U0 = m_inf - min R. (5)
 
 (b) DIP CURVATURE.  (4) requires Phi'(eps) s >~ 1.  At the FIRST dip
-    Phi'(eps1) = eps1/(2v) is small, so at every dispersion of interest here the
+    Phi'(eps1) = Omega(eps1)/v = 0.9813, so Phi'(eps1) s < 1 only up to
+    sd(eta)/Delta = 1.0191; at SMALL dispersion the
     first dip is NOT in the phase-scrambling regime.  What kills it instead is
     that the kernel reaches across a narrow dip into the pre-crossing plateau
     R ~ +1.  The leading behaviour is then set by the curvature of the dip,
@@ -155,8 +167,9 @@ def convolve_prediction(E, R, s, lo=-60.0, hi=120.0):
 
 
 def phase_prediction(U0, eps1, s):
-    """Eq (5): frozen-eps1 phase-scrambling form."""
-    return U0 * np.exp(-(eps1 ** 2) * (s ** 2) / (8.0 * V ** 2))
+    """Eq (5): frozen-eps1 phase-scrambling form, corrected rate Phi' = Omega/v."""
+    om = np.sqrt(eps1 ** 2 + 4.0 * DELTA ** 2)
+    return U0 * np.exp(-0.5 * (om * s / V) ** 2)
 
 
 def curvature_prediction(U0, curv, s):
@@ -198,7 +211,7 @@ def main():
 
     print(f"m_inf = {M_INF:.6f}   U* = {U_STAR:.6f}   v = {V:g}")
     print(f"single agent: m_min = {R[j]:.6f}  U0 = {U0:.6f}  eps1 = {EPS1:.4f} "
-          f" Phi'(eps1)= {EPS1/(2*V):.4f}  |R''| = {CURV:.6f}")
+          f" Phi'(eps1)= {np.sqrt(EPS1**2+4*DELTA**2)/V:.4f}  |R''| = {CURV:.6f}")
     print(f"threshold sd/Delta:  convolution {s_conv:.4f}   "
           f"curvature {s_curv:.4f}   phase-scrambling {s_phase:.4f}")
 

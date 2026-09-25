@@ -148,7 +148,8 @@ _u0 = 1.0   # rebound per cell in simulate()
 
 def simulate(model, D, z, kap, sd, seed, params=None, N=N_AGENT,
              K=K_TRUNC, n_sample=N_SAMPLE, rtol=1e-7, atol=1e-9,
-             method="DOP853", return_traj=False, return_Y=False):
+             method="DOP853", return_traj=False, return_Y=False,
+             m_cross_level=None):
     """One cell, one population draw.  Returns the observable dict."""
     global _u0
     eta = make_eta(N, sd, seed)
@@ -183,9 +184,31 @@ def simulate(model, D, z, kap, sd, seed, params=None, N=N_AGENT,
     _all_out.terminal = True
     _all_out.direction = 1.0
 
+    # Dispersion diagnostics (2026-09-25).  ADDITIVE ONLY, opt-in, default off.
+    # A NON-TERMINAL event on the ensemble mean, so the crossing instant is
+    # located by brentq on the integrator's dense interpolant rather than by
+    # scanning t_eval.  Non-terminal events do not influence step selection, so
+    # the trajectory is the one the freeze integrates, bit for bit; only the
+    # detection differs.  Verified directly: for the same (sd, seed), `m` with
+    # and without `m_cross_level` compares equal under np.array_equal.  The
+    # callers additionally carry the sampled `m_min` so the same trajectory can
+    # be checked against previously stored sample-scanned runs; that check is
+    # performed in the analysis step, not here.
+    ev = [_all_out]
+    if m_cross_level is not None:
+        if model != "focal":
+            raise ValueError("m_cross_level is implemented for the focal model only")
+        lev = float(m_cross_level)
+
+        def _m_cross(t, yy, *_):
+            return yy[2 * N:3 * N].mean() - lev
+        _m_cross.terminal = False
+        _m_cross.direction = -1.0          # downward crossings only
+        ev.append(_m_cross)
+
     ts = np.linspace(0.0, T, n_sample)
     sol = solve_ivp(rhs, (0.0, T), y0, args=args, t_eval=ts, rtol=rtol,
-                    atol=atol, method=method, events=_all_out)
+                    atol=atol, method=method, events=ev)
     if not sol.success:
         raise RuntimeError(sol.message)
 
@@ -201,6 +224,16 @@ def simulate(model, D, z, kap, sd, seed, params=None, N=N_AGENT,
         Y = sol.y[:N]
 
     out = _observables(t, x, Y, eta, D, z, kap, sd, E, v0, model)
+    if m_cross_level is not None:
+        # roots of m(t) - level located by the solver, not by sampling
+        tc = sol.t_events[1]
+        out["t_cross"] = np.asarray(tc, float)
+        out["n_cross"] = int(tc.size)
+        out["t_cross_first"] = float(tc[0]) if tc.size else np.nan
+        out["m_at_cross"] = (np.asarray([yy[2 * eta.size:3 * eta.size].mean()
+                                        for yy in sol.y_events[1]], float)
+                             if tc.size else np.zeros(0))
+        out["solver_status"] = int(sol.status)
     if return_Y:
         # Dispersion diagnostics (2026-09-24).  ADDITIVE ONLY, opt-in, default
         # off: exposes the per-agent array `_observables` already received, so
