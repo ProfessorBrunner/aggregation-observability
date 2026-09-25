@@ -29,7 +29,7 @@ fig,ax=plt.subplots(figsize=(W,2.6))
 ax.errorbar(d.sd_over_Delta,d.U_mean,yerr=d.U_sd,fmt='o',ms=3,color='k',capsize=1.5,label='measured, 256 draws')
 ax.plot(d.sd_over_Delta,d.U_pred_convolution,'-',color='C0',lw=1.2,label='convolution law')
 ax.plot(p.sd_over_Delta,p.U_pred_curvature,'--',color='C1',lw=1,label='curvature form')
-ax.plot(p.sd_over_Delta,p.U_pred_phase,':',color='C3',lw=1.2,label='dephasing form')
+ss=np.linspace(0,3,301); Pp=np.sqrt(4.48**2+4)/5.0; ax.plot(ss,0.277668*np.exp(-0.5*(Pp*ss)**2),':',color='C3',lw=1.2,label='phase-scrambling form')
 ax.axhline(0.069219,color='0.5',lw=0.7); ax.text(2.55,0.078,r'$U^*$',fontsize=8,color='0.3')
 ax.set_ylim(-0.05,0.3); ax.set_xlabel(r'$s/\Delta=\mathrm{sd}(\eta)/\Delta$'); ax.set_ylabel(r'undershoot $U$')
 ax.legend(frameon=False,loc='upper center',bbox_to_anchor=(0.5,-0.22),ncol=2); fig.set_size_inches(W,3.1); fig.tight_layout(); fig.savefig('../figures/fig_undershoot.pdf'); plt.close(fig)
@@ -59,19 +59,19 @@ for pi,ls in [(0.5,'-'),(0.8,'--')]:
 lo=[np.nanmin([Cq_at(N,0.5,cb,qb) for cb in [0.5,0.7,0.9] for qb in [0.3,0.5,0.7]]) for N in Ns]
 hi=[np.nanmax([Cq_at(N,0.5,cb,qb) for cb in [0.5,0.7,0.9] for qb in [0.3,0.5,0.7]]) for N in Ns]
 ax.fill_between(Ns,lo,hi,color='C0',alpha=0.2,label=r'50% power, range over $\bar c\in[0.5,0.9],\ \bar q\in[0.3,0.7]$')
-ax.axvline(741,color='0.5',lw=0.7); ax.axhline(0.0225,color='C3',lw=0.7,ls=':'); ax.set_xlabel(r'sample size $N$'); ax.set_ylabel(r'detectable $|C_q|$'); ax.legend(frameon=False,loc='upper center',bbox_to_anchor=(0.5,-0.22),ncol=1,fontsize=6.5); fig.set_size_inches(W,3.3)
+ax.axvline(766,color='0.5',lw=0.7); ax.axhline(0.0225,color='C3',lw=0.7,ls=':'); ax.set_xlabel(r'sample size $N$'); ax.set_ylabel(r'detectable $|C_q|$'); ax.legend(frameon=False,loc='upper center',bbox_to_anchor=(0.5,-0.22),ncol=1,fontsize=6.5); fig.set_size_inches(W,3.3)
 fig.tight_layout(); fig.savefig('../figures/fig_detect.pdf'); plt.close(fig)
 
-# ---------- Fig 5: Lambda across datasets ----------
-r=pd.read_csv('../data/region_test/region_lr_results.csv')
+# ---------- Fig 5: Lambda across datasets (exact solver; abortion pair from published table) ----------
+r=pd.read_csv('../data/region_test_v2/region_exact_results.csv')
+L=np.maximum(r.Lambda.values,0).copy(); L[r.ds.values==72]=0.0   # published table (Schuman et al. 1981) gives Lambda = 0
 fig,ax=plt.subplots(figsize=(W,2.5))
-L=np.maximum(r.Lambda.values,0); lab=r.ds.values
-col=np.where(r.p05==1,'C3','k')
-ax.scatter(lab,np.where(L>1e-6,L,1e-4),s=10,c=col,zorder=3)
+col=np.where(r.ds==73,'0.6',np.where(r.p05==1,'C3','k'))
+ax.scatter(r.ds,np.where(L>1e-6,L,1e-4),s=10,c=col,zorder=3)
+ax.scatter([72],[9.387],s=22,facecolors='none',edgecolors='C3',zorder=3)
 ax.set_yscale('log'); ax.set_ylim(5e-5,50)
-from scipy.stats import chi2
-ax.annotate('abortion pair\n$p=0.003$ (bootstrap)',xy=(72,9.756),xytext=(40,2),fontsize=7,arrowprops=dict(arrowstyle='-',lw=0.6))
-ax.text(1,1.3e-4,r'$\Lambda=0$ plotted at $10^{-4}$',fontsize=6.5,color='0.4')
+ax.annotate('abortion pair, published moments\n(two moments exchanged)',xy=(72,9.387),xytext=(22,1.2),fontsize=7,arrowprops=dict(arrowstyle='-',lw=0.6))
+ax.text(1,1.6e-4,r'$\Lambda=0$ plotted at $10^{-4}$',fontsize=6.5,color='0.4')
 ax.set_xlabel('dataset'); ax.set_ylabel(r'$\Lambda=2(\ell_{\rm QQ}-\ell_{\rm P})$')
 fig.tight_layout(); fig.savefig('../figures/fig_lambda.pdf'); plt.close(fig)
 print("figures written")
