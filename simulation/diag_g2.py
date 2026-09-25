@@ -48,7 +48,7 @@ mean, <qc> = qbar cbar + Cov(c,q) and <(1-q)(1-c)> = (1-qbar)(1-cbar) + Cov, so
 
 Predicted side  : the right-hand side, from the population's (c_i, q_i).
 Measured side   : the left-hand side, from the pooled 2x2 frame table built by
-                  explicit per-agent state update.
+                  explicit per-agent state update (first 12 agents).
 They are the same number if (G2) is right, so this is a check of an identity,
 not a statistical comparison.  A population of sharp-frame agents each
 satisfying reciprocity exactly therefore shows an apparent POOLED reciprocity

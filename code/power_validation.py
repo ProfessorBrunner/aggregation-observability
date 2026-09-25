@@ -4,7 +4,8 @@ joined by a Gaussian copula whose correlation is tuned (on a 4e5-draw reference 
 15 covariances (0 and +/- seven magnitudes log-spaced 0.002-0.055) x 5 sizes N; M = 2000 surveys per cell.
 Each survey: N/2 respondents in the A->B order, answers drawn from their projective probabilities, and the
 two-sided Bonferroni test of G2 (z_alpha = 2.638) with plug-in variance. Analytic power uses Eq. (19) with the
-population X, Z of Theorem 2. Seed 20260925. Runtime: a few minutes."""
+population X, Z of Theorem 2, whose moments are computed by 160x160 Gauss-Hermite quadrature for the tuned copula
+(v1.2: the reference sample is used only to tune the copula correlation; survey draws are unchanged). Seed 20260925. Runtime: a few minutes."""
 import numpy as np, pandas as pd
 from scipy.stats import norm, beta
 from scipy.optimize import brentq
@@ -20,11 +21,17 @@ Z1=ref.standard_normal(400000); Z2=ref.standard_normal(400000)
 def cov_for(rho):
     c=np.interp(norm.cdf(Z1),grid,icdf_c); q=np.interp(norm.cdf(rho*Z1+np.sqrt(1-rho**2)*Z2),grid,icdf_q)
     return np.cov(c,q)[0,1], c, q
+gh_x,gh_w=np.polynomial.hermite_e.hermegauss(160); gh_w=gh_w/gh_w.sum()
+Z1q,Z2q=np.meshgrid(gh_x,gh_x,indexing='ij'); Wq=np.outer(gh_w,gh_w)
+def quad_moments(rho):
+    """Exact-to-quadrature population moments of (c, q) under the Gaussian copula with correlation rho."""
+    c=beta.ppf(norm.cdf(Z1q),ac,bc); q=beta.ppf(norm.cdf(rho*Z1q+np.sqrt(1-rho**2)*Z2q),aq,bq)
+    cb=(Wq*c).sum(); qb=(Wq*q).sum(); return (Wq*c*q).sum()-cb*qb, cb, qb
 mags=np.geomspace(0.002,0.055,7); targets=np.r_[0.0,mags,-mags]
 Ns=[200,500,741,1500,5000]; M=2000; rows=[]
 for tgt in targets:
     rho=0.0 if tgt==0 else brentq(lambda r: cov_for(r)[0]-tgt,-0.999,0.999)
-    C,c,q=cov_for(rho); cb,qb=c.mean(),q.mean()
+    C,cb,qb=quad_moments(rho)                         # population moments by quadrature (not the reference sample)
     X=cb+C/qb; Z=cb-C/(1-qb); G=X-Z
     for N in Ns:
         se=np.sqrt((2/N)*(X*(1-X)/qb+Z*(1-Z)/(1-qb))); th=abs(G)/se

@@ -9,8 +9,9 @@ l_P : max of the concave log-likelihood over conv S, S = {(q, r, c, qc, rc)} for
       for gradient g, max over S of g.m = max over c in [0,1] of
         g3 c + (a+b)/2 + (1/2) sqrt(a^2 + b^2 + 2ab(2c-1)),   a = g1 + g4 c,  b = g2 + g5 c,
       attained at h = (a u + b v)/|a u + b v| (a pure state), so conv S needs only pure states.
-Stopping: Frank-Wolfe duality gap g.(s* - x) < tol; the gap bounds l_P(opt) - l_P(x), so
-Lambda is reported with an upper and lower bound.
+Stopping: Frank-Wolfe duality gap g.(s* - x) < tol. With an exact linear oracle the gap would bound l_P(opt) - l_P(x);
+with this grid-plus-refinement oracle it does not, so
+Lambda is reported as 2(l_QQ - l_cand), an upper bound from an explicit feasible mixture; the Frank-Wolfe gap is a convergence diagnostic, not a global lower bound.
 """
 import numpy as np
 CG = np.linspace(0.0, 1.0, 4001)
@@ -28,7 +29,7 @@ def loglik(n, p):
     return float(np.sum(n[m]*np.log(p[m])))
 
 def oracle(g):
-    """Exact argmax over S of g.(q, r, c, qc, rc)."""
+    """Approximate argmax over S of g.(q, r, c, qc, rc): grid of 4001 values of c with local refinement."""
     def val(c):
         a = g[0] + g[3]*c; b = g[1] + g[4]*c
         return g[2]*c + (a+b)/2 + 0.5*np.sqrt(np.maximum(a*a + b*b + 2*a*b*(2*c-1), 0))

@@ -1,0 +1,304 @@
+{
+ "note": "Per-node loss columns are empty in every <model>_grid.csv: the grid-score shards s3cal/<model>_<shard>.npz were never saved as artifacts. Node parameters are the frozen grids from stage3_calibrate.py GRIDS; selected vectors verified on-grid to 0 rel. error.",
+ "objective": "unweighted standardised SSE vs the focal model's own output on the 75 frozen training cells, CAL_SEEDS=(3141,3142)",
+ "models": {
+  "lag": {
+   "parameters": {
+    "c_w": 1.7320508075688776,
+    "c_tau": 6.034176336545162
+   },
+   "grid_axes": {
+    "c_w": [
+     0.1,
+     0.1768936020474426,
+     0.3129134644531898,
+     0.5535238985626912,
+     0.9791483623609768,
+     1.7320508075688776,
+     3.0638870628004047,
+     5.419820188053226,
+     9.587315155141829,
+     16.95934711757073,
+     30.0
+    ],
+    "c_tau": [
+     0.05,
+     0.09102821015130401,
+     0.1657227008669993,
+     0.3017088168272581,
+     0.5492802716530588,
+     1.0,
+     1.8205642030260796,
+     3.314454017339986,
+     6.034176336545162,
+     10.985605433061172,
+     20.0
+    ]
+   },
+   "grid_shape": [
+    11,
+    11
+   ],
+   "n_nodes": 121,
+   "selected_node_index": 63,
+   "selected_axis_indices": {
+    "c_w": 5,
+    "c_tau": 8
+   },
+   "on_grid": true,
+   "position": [
+    "INTERIOR",
+    "INTERIOR"
+   ],
+   "selected_loss": 550.15,
+   "selected_loss_source": "null_db_memo.md comparison table",
+   "table_s1_value": 550.2,
+   "table_s1_match": true,
+   "per_node_losses": "MISSING - s3cal/lag_*.npz never promoted to an artifact",
+   "table_s1_difference": -0.05,
+   "table_s1_note": "rounding boundary: 550.15 to one decimal is 550.2 under half-up and 550.1 under half-even"
+  },
+  "two_state": {
+   "parameters": {
+    "c_k": 0.15886564694485628,
+    "c_beta": 3.314454017339986
+   },
+   "grid_axes": {
+    "c_k": [
+     0.02,
+     0.039905246299377604,
+     0.07962143411069948,
+     0.15886564694485628,
+     0.3169786384922227,
+     0.632455532033676,
+     1.261914688960386,
+     2.5178508235883355,
+     5.02377286301916,
+     10.02374467254544,
+     20.0
+    ],
+    "c_beta": [
+     0.05,
+     0.09102821015130401,
+     0.1657227008669993,
+     0.3017088168272581,
+     0.5492802716530588,
+     1.0,
+     1.8205642030260796,
+     3.314454017339986,
+     6.034176336545162,
+     10.985605433061172,
+     20.0
+    ]
+   },
+   "grid_shape": [
+    11,
+    11
+   ],
+   "n_nodes": 121,
+   "selected_node_index": 40,
+   "selected_axis_indices": {
+    "c_k": 3,
+    "c_beta": 7
+   },
+   "on_grid": true,
+   "position": [
+    "INTERIOR",
+    "INTERIOR"
+   ],
+   "selected_loss": 549.93,
+   "selected_loss_source": "null_db_memo.md comparison table",
+   "table_s1_value": 549.9,
+   "table_s1_match": true,
+   "per_node_losses": "MISSING - s3cal/two_state_*.npz never promoted to an artifact",
+   "table_s1_difference": 0.03
+  },
+  "rtip": {
+   "parameters": {
+    "c_w": 4.308869380063768,
+    "c_a": 1.0,
+    "c": 0.42
+   },
+   "grid_axes": {
+    "c_w": [
+     0.2,
+     0.4308869380063768,
+     0.9283177667225558,
+     2.0000000000000004,
+     4.308869380063768,
+     9.283177667225555,
+     20.0
+    ],
+    "c_a": [
+     0.05,
+     0.13572088082974532,
+     0.36840314986403866,
+     1.0,
+     2.7144176165949068,
+     7.368062997280774,
+     20.0
+    ],
+    "c": [
+     0.42,
+     0.5,
+     0.65,
+     0.85,
+     1.2,
+     2.0,
+     4.0
+    ]
+   },
+   "grid_shape": [
+    7,
+    7,
+    7
+   ],
+   "n_nodes": 343,
+   "selected_node_index": 217,
+   "selected_axis_indices": {
+    "c_w": 4,
+    "c_a": 3,
+    "c": 0
+   },
+   "on_grid": true,
+   "position": [
+    "INTERIOR",
+    "INTERIOR",
+    "BOUNDARY"
+   ],
+   "selected_loss": 565.67,
+   "selected_loss_source": "null_db_memo.md comparison table",
+   "table_s1_value": 565.7,
+   "table_s1_match": true,
+   "per_node_losses": "MISSING - s3cal/rtip_*.npz never promoted to an artifact",
+   "table_s1_difference": -0.03,
+   "boundary_note": "c = 0.42 is the lowest grid value and a STRUCTURAL boundary, not a grid artifact: transitions require |c| > 2/(3*sqrt(3)) = 0.384900."
+  },
+  "ising": {
+   "parameters": {
+    "c_J": 5.0,
+    "c_T": 4.135185542000139,
+    "c_tau": 7.368062997280774
+   },
+   "grid_axes": {
+    "c_J": [
+     0.02,
+     0.05019802884366821,
+     0.12599210498948732,
+     0.31622776601683794,
+     0.7937005259840996,
+     1.9921100948292227,
+     5.0
+    ],
+    "c_T": [
+     0.05,
+     0.12091355875609787,
+     0.2924017738212866,
+     0.7071067811865475,
+     1.7099759466766973,
+     4.135185542000139,
+     10.0
+    ],
+    "c_tau": [
+     0.05,
+     0.13572088082974532,
+     0.36840314986403866,
+     1.0,
+     2.7144176165949068,
+     7.368062997280774,
+     20.0
+    ]
+   },
+   "grid_shape": [
+    7,
+    7,
+    7
+   ],
+   "n_nodes": 343,
+   "selected_node_index": 334,
+   "selected_axis_indices": {
+    "c_J": 6,
+    "c_T": 5,
+    "c_tau": 5
+   },
+   "on_grid": true,
+   "position": [
+    "BOUNDARY",
+    "INTERIOR",
+    "INTERIOR"
+   ],
+   "selected_loss": 566.67,
+   "selected_loss_source": "null_db_memo.md comparison table",
+   "table_s1_value": 566.7,
+   "table_s1_match": true,
+   "per_node_losses": "MISSING - s3cal/ising_*.npz never promoted to an artifact",
+   "table_s1_difference": -0.03,
+   "boundary_note": "c_J = 5.0 is the top grid value; the grid was extended to c_J = 50 (196 extra nodes) with no improvement."
+  },
+  "db": {
+   "parameters": {
+    "c_gamma": 0.25118864315095824,
+    "c_beta": 1.0
+   },
+   "grid_axes": {
+    "c_gamma": [
+     0.001,
+     0.0025118864315095794,
+     0.00630957344480193,
+     0.01584893192461114,
+     0.039810717055349734,
+     0.1,
+     0.25118864315095824,
+     0.6309573444801936,
+     1.584893192461114,
+     3.981071705534973,
+     10.0
+    ],
+    "c_beta": [
+     0.01,
+     0.025118864315095794,
+     0.06309573444801933,
+     0.15848931924611143,
+     0.3981071705534973,
+     1.0,
+     2.5118864315095824,
+     6.309573444801936,
+     15.848931924611142,
+     39.810717055349734,
+     100.0
+    ]
+   },
+   "grid_shape": [
+    11,
+    11
+   ],
+   "n_nodes": 121,
+   "selected_node_index": 71,
+   "selected_axis_indices": {
+    "c_gamma": 6,
+    "c_beta": 5
+   },
+   "on_grid": true,
+   "position": [
+    "INTERIOR",
+    "INTERIOR"
+   ],
+   "selected_loss": 67.034,
+   "selected_loss_source": "null_db_results.npz calib[2] = 67.034; null_db_memo.md quotes 67.0340",
+   "table_s1_value": 67.0,
+   "table_s1_match": true,
+   "per_node_losses": "MISSING - s3cal/db_*.npz never promoted to an artifact",
+   "table_s1_difference": 0.034
+  }
+ },
+ "table_s1_reference": {
+  "values_as_given": [
+   67.0,
+   549.9,
+   550.2,
+   565.7,
+   566.7
+  ],
+  "assignment": "matched to the nearest stored loss"
+ }
+}

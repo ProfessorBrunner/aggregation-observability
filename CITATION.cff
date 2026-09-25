@@ -1,4 +1,4 @@
-cff-version: 1.2.0
+cff-version: 1.3.0
 message: "If you use this code or data, please cite it as below."
 title: "Which quantum-like constraints survive disorder averaging? Code and derived data"
 authors:
@@ -6,7 +6,7 @@ authors:
     given-names: Robert J.
     orcid: "https://orcid.org/0000-0002-7892-4460"
     affiliation: "University of Illinois Urbana-Champaign"
-version: 1.2.0
+version: 1.3.0
 date-released: 2026-09-26
 license: MIT
 repository-code: "https://github.com/ProfessorBrunner/aggregation-observability"

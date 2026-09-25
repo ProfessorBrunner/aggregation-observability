@@ -10,7 +10,7 @@ shipped outputs.
 | Script | Output | Supports |
 |---|---|---|
 | `stage3_models.py` | — | the dynamics itself: focal model and the five classical nulls; every number below is one of its integrations |
-| `stage3_runs.py` | — | the frozen 165-cell sweep, the 75 training cells, the eight population draws `(3141 … 3148)` |
+| `stage3_runs.py` | — | the frozen 216-cell sweep, the 75 training cells, the eight population draws `(3141 … 3148)` |
 | `stage3_calibrate.py` | `s3cal/db_*.npz` | the null-calibration grid: Null DB best node `c_gamma = 0.25118864`, `c_beta = 1.0`, SSE `67.034`, interior on both axes, against `549.93 … 566.67` for the frozen four nulls |
 | `diag_dispersion.py` | `diag_dispersion.npz`, `dispersion_summary.csv`, `dispersion_perdraw.csv` | undershoot `U` against dispersion, 17 dispersions x 8 draws; the exact `kappa = 0` reduction `m = (G_s * R)(xbar)`; single-agent `m_min = -0.708449`, `U0 = 0.277668`, `eps1 = 4.4802`, `|R''(eps1)| = 0.309810`; convolution threshold `1.3858`; endpoint invariance (`m_end` spread `1.8e-04` while `U` collapses from `0.277668` to `0.004593`) |
 | `diag_dispersion.py` (same run) | `dispersion_summary.csv` cols `U_pred_*` | the three predictors and their ranges of validity: convolution correct throughout; curvature better to about 0.9 and negative above 1.3388; phase better from 1.1 upward; corrected phase rate `Phi' = Omega/v`, `Phi'(eps1) = 0.9813`, so `Phi' s = 1` at `sd/Delta = 1.0191` |

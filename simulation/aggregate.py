@@ -64,7 +64,9 @@ def fit50(s, k, n):
 
 
 def bootstrap50(s, A, rng, B=2000):
-    """Percentile bootstrap of the 50% point, resampling draws within each
+    """SUPERSEDED for reported intervals (v1.2.1): resampling within each dispersion ignores the common
+    population seeds shared across dispersions. Reported intervals come from seed_block_bootstrap.py.
+    Percentile bootstrap of the 50% point, resampling draws within each
     dispersion independently.  A has shape (n_sd, n_draws) of 0/1 outcomes.
     The rng is passed in and SHARED across the three detectors, in the order
     event, 24000, 1200, because that is the stream the memo's intervals came

@@ -11,7 +11,8 @@ corner"):
 
     Delta = 1, z = Delta^2/v = 0.2  (so v = 5), kappa = 0, u_dot = 0,
     lambda = 0, K = 320, N = 100 agents, gamma_phi = 0.02 Delta,
-    gamma_r = 0 exactly, x(t) sweeps -60 .. +120 in units of Delta.
+    gamma_r = 0 exactly; x(t) starts at -K Delta - max(eta) = -320 Delta - max(eta)
+    and runs for 2.5 x span / v, span = 2K Delta + (max(eta) - min(eta)).
 
 Dispersion is the one swept quantity: eta_i ~ N(0, sd^2) added to the detuning,
 reported as `sd(eta)/Delta`.  `m(t)` is the ensemble mean of `r_z`.
@@ -37,7 +38,7 @@ kappa, sd_eta, seed, params=None, K=..., n_sample=..., ...)` is the only entry
 point every other script uses.
 
 ### 2. `stage3_runs.py`
-Defines the frozen 165-cell sweep, `cells()`, `is_train()`, and the eight
+Defines the frozen 216-cell sweep (75 training, 141 held-out), `cells()`, `is_train()`, and the eight
 population draws `SEEDS = (3141, ..., 3148)`.  Imported by
 `stage3_calibrate.py` and `diag_dispersion.py`; not run here.
 
@@ -110,8 +111,8 @@ Shards: `s3sd1/sd1_<shard>.npz` -> merged `diag_sd1.npz` (256 x 8).
 of the declared block) x 7 readout fields `X_READ = (2, 5, 10, 20, 50, 100,
 320) Delta` = 9408 population readouts.  Needs `sec4_order_restriction.py` and
 the `return_Y` / `r_xyz` opt-ins of `stage3_models.py`.  For each population it
-records the covariance form, the pooled 2x2 table, the explicit 100-agent
-Lüders state-update value, and the pooled QQ arms.
+records the covariance form, the pooled 2x2 table built algebraically from all
+100 agents, the explicit Lüders state-update value on the first 12 agents, and the pooled QQ arms.
 Shards: `s3g2/g2_<shard>.npz` -> merged `diag_g2.npz` (9408 x 25).
 
 ### 10. `aggregate.py` — summary tables and threshold statistics

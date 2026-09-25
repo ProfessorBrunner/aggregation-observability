@@ -6,6 +6,18 @@ Code and derived data for:
 
 > R. J. Brunner, *Which quantum-like constraints survive disorder averaging? Reciprocity and observability in heterogeneous populations* (manuscript submitted to Physical Review E, 2026).
 
+## Release v1.3
+
+v1.3 accompanies revision 5 of the manuscript. It supersedes v1.2 (commit d879cc9) in these respects:
+- **Threshold intervals.** They now come from a seed-block bootstrap (`simulation/seed_block_bootstrap.py`), which respects the common population seeds across dispersions. The within-dispersion bootstraps are superseded.
+- **Calibration.** `simulation/calibration_decomposition.py` decomposes the calibration loss at the selected node and counts the timing residuals. `simulation/comparator_scores.py` reproduces all five Table S1 losses at their selected nodes, from `simulation/calibration_records/`.
+- **Finite start.** `simulation/start_check.py` documents the cutoff dependence.
+- **Power benchmark.** `code/power_validation.py` computes the analytic benchmark from quadrature population moments; the survey draws are unchanged.
+- **Witness checker.** `code/v2/verify_witnesses.py` exits with status 1 unless all 73 witnesses are found and pass.
+- **Documentation.** Corrected: the 216-cell sweep, the sweep range, the 12-agent state-update check, the solver docstrings, and defaults for `diag_g2_readout.py`.
+
+Additional checks, from `simulation/`: `python seed_block_bootstrap.py` (seconds), `python calibration_decomposition.py` (about 30 s), `python start_check.py` (seconds). Logs: `verification/rev5_checks.log`.
+
 ## Release v1.2
 
 v1.2 accompanies revision 3 of the manuscript (paper and Supplemental Material dated September 25, 2026). It adds per-dataset proof files for the empirical result, and scripts for the three checks added in that revision.
@@ -66,7 +78,7 @@ One JSON file per dataset. Each holds:
 | insensitivity to relative order sizes (144 fits) | Sec. V.A | `order_weight_check.py`, `order_weight_check.csv` |
 | power validation (75 cells) | Sec. IV.C | `code/power_validation.py`, `data/power_validation.csv` |
 | second power check (clipped normal) | Sec. IV.C | `code/check_detectability.py`, its saved output |
-| threshold 50% points and intervals | Sec. VI, Supplement S4 | `simulation/aggregate.py` (values reported); `code/v2/fit_definedness.py` (parametric-bootstrap cross-check: same points, intervals within 0.001) |
+| threshold 50% points and intervals | Sec. VI, Supplement S4 | points: `simulation/aggregate.py`; intervals and the detector difference: `simulation/seed_block_bootstrap.py` (seed-block resampling). The within-dispersion bootstraps in `aggregate.py` and `code/v2/fit_definedness.py` are superseded. |
 | dynamical simulations, calibration, rival offset | Sec. VI, Supplement S3 | `simulation/` (see `simulation/PAPER1_MAP.md`; smoke test, calibration example, aggregation) |
 | figures 2–5, S1 | Secs. IV–VI | `make_figs.py`, `data/cs_simulation/` |
 

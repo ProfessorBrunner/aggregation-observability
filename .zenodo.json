@@ -1,0 +1,22 @@
+{
+  "title": "Which quantum-like constraints survive disorder averaging? Code and derived data",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Brunner, Robert J.",
+      "affiliation": "University of Illinois Urbana-Champaign",
+      "orcid": "0000-0002-7892-4460"
+    }
+  ],
+  "description": "Code and derived data for 'Which quantum-like constraints survive disorder averaging? Reciprocity and observability in heterogeneous populations'. Includes the likelihood-ratio region test with per-dataset feasible-mixture witnesses and a standalone checker on the published question-order datasets, the coding-robustness check, implied covariances, a Monte Carlo check of the detectability boundary, summary tables of the dynamical simulations, and scripts that regenerate all figures.",
+  "license": "MIT",
+  "keywords": [
+    "quantum cognition",
+    "question order effects",
+    "QQ equality",
+    "aggregation",
+    "Simpson's paradox",
+    "statistical physics"
+  ],
+  "version": "1.3.0"
+}

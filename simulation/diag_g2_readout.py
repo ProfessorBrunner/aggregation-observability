@@ -10,7 +10,7 @@ from diag_definedness import SEEDS_256
 
 XR, SDS = 2.0, (0.3, 1.1, 3.0)
 SEEDS = SEEDS_256[:64]
-ap = argparse.ArgumentParser(); ap.add_argument("--shard", type=int); ap.add_argument("--nshards", type=int)
+ap = argparse.ArgumentParser(); ap.add_argument("--shard", type=int, default=0); ap.add_argument("--nshards", type=int, default=1)
 a = ap.parse_args(); os.makedirs("s3g2r", exist_ok=True)
 jobs = [(s, sd) for s in SDS for sd in SEEDS]
 rows = []
