@@ -1,6 +1,6 @@
 # Which quantum-like constraints survive disorder averaging?
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22948242.svg)](https://doi.org/10.5281/zenodo.22948242)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22964616.svg)](https://doi.org/10.5281/zenodo.22964616)
 
 Code and derived data for:
 
