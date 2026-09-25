@@ -292,7 +292,9 @@ def main():
     # ---- logistic 50% points with bootstrap --------------------------------
     SC = np.unique(np.round(C[:, CC["sd"]], 6))
     nn = np.full(len(SC), 256)
-    print("\nlogistic 50% points (binomial GLM, 2000-replicate percentile bootstrap,"
+    print("\nHISTORICAL, SUPERSEDED bootstrap intervals (resampling within each dispersion).")
+    print("Reported intervals are produced by seed_block_bootstrap.py; the 50% points below are current.")
+    print("logistic 50% points (binomial GLM, 2000-replicate percentile bootstrap,"
           " rng seed 20260925):")
     rng = np.random.default_rng(20260925)
     for lab in ("event", "24000", "1200"):

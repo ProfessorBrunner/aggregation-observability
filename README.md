@@ -6,6 +6,10 @@ Code and derived data for:
 
 > R. J. Brunner, *Which quantum-like constraints survive disorder averaging? Reciprocity and observability in heterogeneous populations* (manuscript submitted to Physical Review E, 2026).
 
+## Release v1.3.1
+
+v1.3.1 is the release cited by the submitted manuscript. Relative to v1.3 (commit d039657) it corrects the CITATION.cff schema field (`cff-version: 1.2.0`; software `version: 1.3.1`) and labels the superseded bootstrap block that `simulation/aggregate.py` prints. There are no changes to code logic, data or results.
+
 ## Release v1.3
 
 v1.3 accompanies revision 5 of the manuscript. It supersedes v1.2 (commit d879cc9) in these respects:
