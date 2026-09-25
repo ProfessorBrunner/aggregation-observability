@@ -1,0 +1,13 @@
+
+$ python run_exact.py
+datasets with Lambda > 1e-6: 0 | max 2*gap: 6.885681187387585e-05
+[runtime 83 s]
+
+$ python schuman_fit.py
+published table: Lambda=0.0000 (gap-based lower 0.0000, not a global bound; 2gap 6.9e-05)
+published moments (exchanged): Lambda=9.3873 (gap-based lower 9.3873, not a global bound)
+[runtime 9 s]
+
+$ python implied_covariances.py
+median |C_q| 0.057 |C_r| 0.045, max 0.169; individually detectable: 62 of 72
+[runtime 1 s]

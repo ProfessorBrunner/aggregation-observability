@@ -1,0 +1,10 @@
+
+$ python check_coding.py
+largest order effect (points): definition median 4.6 max 22.7 | swapped median 14.0 max 40.7
+not at zero under the swapped reading: [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 45, 46, 48, 57, 60, 61, 62, 64, 67, 68, 71]
+their order effects under the swapped reading (points): min 11.8
+[runtime 118 s]
+
+$ python order_weight_check.py
+144 endpoint fits; largest Lambda = 1.5e-11; any outside the hull (Lambda > 1e-8): 0
+[runtime 134 s]

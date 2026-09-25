@@ -1,5 +1,5 @@
-"""Certified likelihood-ratio statistic for all datasets. Datasets 1-71 (and 73): Frank-Wolfe with the
-exact oracle. Dataset 72 (abortion pair): from the published table of Schuman et al. (1981), because
+"""Likelihood-ratio statistic for all datasets. Datasets 1-71 (and 73): Frank-Wolfe with the
+grid-plus-refinement oracle; zero values are proven by the witnesses (make_witnesses.py). Dataset 72 (abortion pair): from the published table of Schuman et al. (1981), because
 two of its published moments are exchanged. About one minute."""
 import numpy as np, pandas as pd
 from common import D, cells_from_row, schuman_counts, load

@@ -1,0 +1,10 @@
+$ python v2/fit_definedness.py
+lattice 24000: 50% point 1.405, 95% interval [1.397, 1.412]
+lattice 1200: 50% point 1.342, 95% interval [1.335, 1.350]
+[runtime 14 s]
+
+$ python power_validation.py
+cells with C_q != 0: 70; |empirical - analytic|: median 0.0032, mean 0.0054, rms 0.0086, max 0.0401
+largest at N=5000, C_q=-0.0105: analytic 0.364, empirical 0.405
+false-positive rate at C_q=0 by N: {200: 0.0095, 500: 0.008, 741: 0.008, 1500: 0.0085, 5000: 0.0065}  nominal 0.0083
+[runtime 77 s]

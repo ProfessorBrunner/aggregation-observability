@@ -1,6 +1,6 @@
 """Robustness to the column-coding question. Order effects implied by each reading, and Lambda for
-datasets 1-71 under the swapped reading (stage 1: Frank-Wolfe; rows that do not certify quickly are
-listed; their certified values are in swapped_stage2a.csv, computed with boundary_fit.fit)."""
+datasets 1-71 under the swapped reading (stage 1: Frank-Wolfe; rows that do not converge to zero quickly are
+listed; their values are in swapped_stage2a.csv, computed with boundary_fit.fit)."""
 import numpy as np, pandas as pd
 from common import D, cells_from_row, load
 from region_exact import ll_QQ, ll_P
@@ -15,5 +15,5 @@ for _,r in x.iterrows():
     rows.append((int(r.ds),max(0,2*(ll_QQ(n)-lp)),2*gap))
 o=pd.DataFrame(rows,columns=['ds','L','twogap'])
 need=o[(o.twogap>=1e-4)|(o.L>=1e-6)].ds.tolist()
-print("not certified zero under the swapped reading:",need)
+print("not at zero under the swapped reading:",need)
 print("their order effects under the swapped reading (points): min %.1f"%(100*d[d.ds.isin(need)].oe_swap.min()))

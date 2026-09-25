@@ -1,9 +1,11 @@
-"""Exact likelihood-ratio test for the heterogeneous two-dimensional projective class.
+"""Note (v1.2): the maximization over c is a 4001-point grid with local refinement, not a certified global maximum. The zero results rest on the saved feasible-mixture witnesses (witnesses/, verify_witnesses.py); nonzero values are numerical estimates.
+
+Likelihood-ratio test for the heterogeneous two-dimensional projective class.
 
 Moment vector m = (Q, R, s, u, w) with u = QX, w = RY. Pooled cells are linear in m.
 l_QQ: closed form (QQ-constrained multinomial MLE).
 l_P : max of the concave log-likelihood over conv S, S = {(q, r, c, qc, rc)} for qubit respondents,
-      by Frank-Wolfe with away steps and an exact linear oracle:
+      by Frank-Wolfe with away steps and a linear oracle (grid of 4001 values of c plus local refinement):
       for gradient g, max over S of g.m = max over c in [0,1] of
         g3 c + (a+b)/2 + (1/2) sqrt(a^2 + b^2 + 2ab(2c-1)),   a = g1 + g4 c,  b = g2 + g5 c,
       attained at h = (a u + b v)/|a u + b v| (a pure state), so conv S needs only pure states.

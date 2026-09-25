@@ -1,0 +1,28 @@
+# Verification log, 2026-09-25T19:52Z, python 3.12.3, numpy 2.4.4, scipy 1.17.1
+
+$ python verify_witnesses.py
+73 witnesses checked; failures: 0; largest 2(l_QQ - l_cand) = 4.55e-13 (tolerance 1e-09)
+[runtime 0 s]
+
+$ python endpoint_check.py
+z=0.2, c_beta=1, c'_gamma=0.1: y_inf = -0.0890
+z=0.2, c_beta=1, c'_gamma=0.251: y_inf = -0.1978
+z=0.2, c_beta=1, c'_gamma=1.0: y_inf = -0.3595
+same product 0.5: -0.286239 -0.286239
+[runtime 0 s]
+
+$ python disk_check.py
+max |Eq.(14) - disk form| over 2e5 random triples: 4.229746991768479e-06
+largest radius over 72 datasets: 0.872; counterexample: 2.43
+[runtime 1 s]
+
+$ python jordan_check.py
+dimension 3, rank(P) 1: Lambda = 0.0e+00
+dimension 4, rank(P) 2: Lambda = 0.0e+00
+dimension 4, rank(P) 1: Lambda = 5.8e-11
+dimension 5, rank(P) 2: Lambda = 5.8e-11
+dimension 6, rank(P) 3: Lambda = 0.0e+00
+dimension 6, rank(P) 2: Lambda = 0.0e+00
+dimension 8, rank(P) 4: Lambda = 1.2e-10
+control (counterexample table): Lambda = 156674
+[runtime 208 s]

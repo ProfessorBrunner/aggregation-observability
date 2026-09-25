@@ -1,5 +1,5 @@
 """Record of the bootstrap for dataset 72 read from its published (exchanged) moments: parametric
-bootstrap from the fitted projective point (mstar_72.npy), certified refits. Usage: python boot_published_moments.py <start_seed> <B>.
+bootstrap from the fitted projective point (mstar_72.npy), refits (numerical estimates). Usage: python boot_published_moments.py <start_seed> <B>.
 The stored replicates (seeds 1000000-1002003) are in data/region_test_v2/bootstrap_published_moments/."""
 import numpy as np, sys, json
 from common import D

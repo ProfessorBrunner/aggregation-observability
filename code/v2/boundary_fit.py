@@ -1,4 +1,4 @@
-"""Direct maximum likelihood over mixtures of K pure-state qubit respondents, certified by the
+"""Direct maximum likelihood over mixtures of K pure-state qubit respondents, checked against the
 exact Frank-Wolfe duality gap: Lambda_lower = Lambda - 2 gap <= Lambda_true <= Lambda."""
 import numpy as np
 from scipy.optimize import minimize
